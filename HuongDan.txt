@@ -1,0 +1,43 @@
+﻿1 : mở thư mục LSharp nằm ở C:\LSharp chạy file LeagueSharp.Loader
+2: Update Leaguesharp.Common 
+3: Qua phần cài đặt xem phím tắt, vào game , ESC  phần hình ảnh chỉnh thành Không viền.. bấm F5 để load phần mềm
+  + Giữ nút Shjft gần CapsLock để hiện menu phần mềm, : nút V là tự Farm và rỉa máu,nút Space ( nút Cách ) là Combo , có thể giữ phím shift
+ rồi kick chuột trái vào phím muốn đổi để đôi thành phím khác
+
+4 Chọn 1 số Assemblies thông dụng để chơi , 
+	+ Evandee : Tránh né các Skill
+	+ tracker , hiện nấm , mắt, Skill của tướng, hồi chiêu chưa vv
+	+ Master Activator : hổ trợ tự sử dụng bơm máu , Item đồng hồ cát , hetech , vô danh ......nhìu thứ khác
+	+ HuyNK series.. hỗ trợ Ezreal, Teemo, Kalista  <------Rất bá đạo
+	+JeonUtility  : Giống MasterActivator ... hỗ trợ thêm hiện Khi nào Ulti để Ks cho Kathus , Ezreal vvv
+	+Ultimate Carry Prevolution : hỗ trợ Lucian ....Nhiều tướng nhưng không ổn định
+	+Marksman : Tất cả các tướng AD 
+	+xSaliceReligionAIO  : hỗ trợ
+------------------------------------------------
++   Akali
+Anivia
+Azir
+Corki
+Ezreal
+Fiora 
+Irelia
+Jayce
+Katarina
+Lucian
+ Orianna
+Rumble
+Syndra
+Teemo
+Velkoz
+Vladimir
+Zed
+Zyra  
+-------------------------------------------------
+
+Ngoài ra còn nhiều các Assemblies khác nằm trong thư mục C:\LSharp\Ass421
+Không Thì cài đặt bằng Git ....tự tìm hiểu thêm nhé : 
+Có gì Alo kim : 01693899717
+-----------4rum va face Kim tên HuyNK
+  
+
+

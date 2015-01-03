@@ -23,74 +23,82 @@ namespace HuyNKSeries.Champ
 
         private void LoadMenu()
         {
-            // Create menu
-
-           // Menus.menu = new Menu("[HuyNK] " + Menus.CHAMP_NAME, "huynks" + Menus.CHAMP_NAME, true);
-           Menu key = new Menu("Key", "Key");
+            
+           Menu key = new Menu("Đánh nhau", "Key");
            
-                key.AddItem(new MenuItem("ComboActive", "Combo!").SetValue(new KeyBind(32, KeyBindType.Press)));
-                key.AddItem(new MenuItem("HarassActive", "Harass!").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
-                key.AddItem(new MenuItem("HarassActiveT", "Harass (toggle)!").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Toggle)));
+                key.AddItem(new MenuItem("ComboActive", "Đánh nhau").SetValue(new KeyBind(32, KeyBindType.Press)));
+                key.AddItem(new MenuItem("HarassActive", "Rỉa máu").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
+                key.AddItem(new MenuItem("HarassActiveT", "Rỉa máu (Luôn luôn)!").SetValue(new KeyBind("N".ToCharArray()[0], KeyBindType.Toggle)));
                 Menus.menu.AddSubMenu(key);
           
 
             // Combo
-            Menu combo = new Menu("Combo", "combo");
-            combo.AddItem(new MenuItem("comboUseQ", "Use Q").SetValue(true));
-            combo.AddItem(new MenuItem("comboUseE", "Use E").SetValue(true));
-            combo.AddItem(new MenuItem("comboNumE", "Stacks for E").SetValue(new Slider(5, 1, 20)));
-            combo.AddItem(new MenuItem("comboUseItems", "Use items").SetValue(true));
-            combo.AddItem(new MenuItem("comboUseIgnite", "Use Ignite").SetValue(true));
-            combo.AddItem(new MenuItem("comboActive", "Combo active").SetValue(new KeyBind(32, KeyBindType.Press)));
+            Menu combo = new Menu("Cài đặt chiêu", "combo");
+            combo.AddItem(new MenuItem("comboUseQ", "Dùng Q").SetValue(true));
+            combo.AddItem(new MenuItem("comboUseE", "Dùng E").SetValue(true));
+            combo.AddItem(new MenuItem("comboNumE", "Dùng E nếu đủ ").SetValue(new Slider(5, 1, 20)));
+            combo.AddItem(new MenuItem("comboUseItems", "Dùng items").SetValue(true));
+            combo.AddItem(new MenuItem("comboUseIgnite", "Thiêu đốt").SetValue(true));
+            combo.AddItem(new MenuItem("comboActive", "Phím đánh nhau").SetValue(new KeyBind(32, KeyBindType.Press)));
             Menus.menu.AddSubMenu(combo);
 
             // Harass
-            Menu harass = new Menu("Harass", "harass");
-            harass.AddItem(new MenuItem("harassUseQ", "Use Q").SetValue(true));
-            harass.AddItem(new MenuItem("harassMana", "Mana usage in percent (%)").SetValue(new Slider(30)));
-            harass.AddItem(new MenuItem("harassActive", "Harass active").SetValue(new KeyBind('C', KeyBindType.Press)));
+            Menu harass = new Menu("Rỉa máu", "harass");
+            harass.AddItem(new MenuItem("harassUseQ", "Dùng Q").SetValue(true));
+          //  harass.AddItem(new MenuItem("harassMana", "Quản lý mana dùng Q (%)").SetValue(new Slider(30)));
+            harass.AddItem(new MenuItem("harassActive", "Phím rỉa máu").SetValue(new KeyBind('V', KeyBindType.Press)));
             Menus.menu.AddSubMenu(harass);
 
             // WaveClear
-            Menu waveClear = new Menu("WaveClear", "waveClear");
-            waveClear.AddItem(new MenuItem("waveUseQ", "Use Q").SetValue(true));
-            waveClear.AddItem(new MenuItem("waveNumQ", "Minion kill number for Q").SetValue(new Slider(3, 1, 10)));
-            waveClear.AddItem(new MenuItem("waveUseE", "Use E").SetValue(true));
-            waveClear.AddItem(new MenuItem("waveNumE", "Minion kill number for E").SetValue(new Slider(2, 1, 10)));
-            waveClear.AddItem(new MenuItem("waveBigE", "Always E big minions").SetValue(true));
-            waveClear.AddItem(new MenuItem("waveMana", "Mana usage in percent (%)").SetValue(new Slider(30)));
-            waveClear.AddItem(new MenuItem("waveActive", "WaveClear active").SetValue(new KeyBind('V', KeyBindType.Press)));
+            Menu waveClear = new Menu("Dọn lính", "waveClear");
+            waveClear.AddItem(new MenuItem("waveUseQ", "Dùng Q").SetValue(true));
+            waveClear.AddItem(new MenuItem("waveNumQ", "Giết bằng Q nếu lính>=").SetValue(new Slider(3, 1, 10)));
+            waveClear.AddItem(new MenuItem("waveUseE", "Dùng E").SetValue(true));
+            waveClear.AddItem(new MenuItem("waveNumE", "Giêt lính bằng E >=").SetValue(new Slider(2, 1, 10)));
+            waveClear.AddItem(new MenuItem("waveBigE", "Luôn E vào lính to").SetValue(true));
+          //  waveClear.AddItem(new MenuItem("waveMana", "Quản lý mana dùng (%)").SetValue(new Slider(30)));
+            waveClear.AddItem(new MenuItem("waveActive", "Dọn lính").SetValue(new KeyBind('V', KeyBindType.Press)));
             Menus.menu.AddSubMenu(waveClear);
 
             // JungleClear
-            Menu jungleClear = new Menu("JungleClear", "jungleClear");
-            jungleClear.AddItem(new MenuItem("jungleUseE", "Use E").SetValue(true));
-            jungleClear.AddItem(new MenuItem("jungleActive", "JungleClear active").SetValue(new KeyBind('V', KeyBindType.Press)));
+            Menu jungleClear = new Menu("Farm Rừng", "jungleClear");
+            jungleClear.AddItem(new MenuItem("jungleUseE", "Dùng E và Q").SetValue(true));
+            jungleClear.AddItem(new MenuItem("jungleActive", "Farm rừng").SetValue(new KeyBind('V', KeyBindType.Press)));
             Menus.menu.AddSubMenu(jungleClear);
 
             // Flee
-            Menu flee = new Menu("Flee", "flee");
-            flee.AddItem(new MenuItem("fleeWalljump", "Try to jump over walls").SetValue(true));
-            flee.AddItem(new MenuItem("fleeAA", "Smart usage of AA").SetValue(true));
-            flee.AddItem(new MenuItem("fleeActive", "Flee active").SetValue(new KeyBind('T', KeyBindType.Press)));
+            Menu flee = new Menu("Chạy trốn", "flee");
+            flee.AddItem(new MenuItem("fleeWalljump", "Nhảy qua tường").SetValue(true));
+            flee.AddItem(new MenuItem("fleeAA", "Vừa chạy vừa đánh").SetValue(true));
+            flee.AddItem(new MenuItem("fleeActive", "Nhảy").SetValue(new KeyBind('G', KeyBindType.Press)));
             Menus.menu.AddSubMenu(flee);
 
             // Misc
-            Menu misc = new Menu("Misc", "misc");
-            misc.AddItem(new MenuItem("miscKillstealE", "Killsteal with E").SetValue(true));
+            Menu misc = new Menu("Linh Tinh", "misc");
+            misc.AddItem(new MenuItem("miscKillstealE", "Giết bằng E").SetValue(true));
             Menus.menu.AddSubMenu(misc);
 
             // Items
             Menu items = new Menu("Items", "items");
-            items.AddItem(new MenuItem("itemsBotrk", "Use BotRK").SetValue(true));
+            items.AddItem(new MenuItem("itemsBotrk", "Vô danh").SetValue(true));
             Menus.menu.AddSubMenu(items);
 
             // Drawings
-            Menu drawings = new Menu("Drawings", "drawings");
-            drawings.AddItem(new MenuItem("drawRangeQ", "Q range").SetValue(new Circle(true, Color.FromArgb(150, Color.IndianRed))));
-            drawings.AddItem(new MenuItem("drawRangeW", "W range").SetValue(new Circle(true, Color.FromArgb(150, Color.MediumPurple))));
-            drawings.AddItem(new MenuItem("drawRangeE", "E range").SetValue(new Circle(true, Color.FromArgb(150, Color.DarkRed))));
-            drawings.AddItem(new MenuItem("drawRangeR", "R range").SetValue(new Circle(false, Color.FromArgb(150, Color.Red))));
+            Menu drawings = new Menu("Tầm đánh", "drawings");
+            drawings.AddItem(new MenuItem("drawRangeQ", "Vòng Q").SetValue(new Circle(true, Color.FromArgb(150, Color.IndianRed))));
+            drawings.AddItem(new MenuItem("drawRangeW", "Vòng W").SetValue(new Circle(true, Color.FromArgb(150, Color.MediumPurple))));
+            drawings.AddItem(new MenuItem("drawRangeE", "Vòng E").SetValue(new Circle(true, Color.FromArgb(150, Color.DarkRed))));
+            drawings.AddItem(new MenuItem("drawRangeR", "Vòng R").SetValue(new Circle(false, Color.FromArgb(150, Color.Red))));
+            MenuItem drawComboDamageMenu = new MenuItem("Draw_ComboDamage", "Thanh máu sau khi Combo ").SetValue(true);
+            drawings.AddItem(drawComboDamageMenu);
+            Utility.HpBarDamageIndicator.DamageToUnit = GetComboDamage;
+            Utility.HpBarDamageIndicator.Enabled = drawComboDamageMenu.GetValue<bool>();
+            drawComboDamageMenu.ValueChanged +=
+                delegate(object sender, OnValueChangeEventArgs eventArgs)
+                {
+                    Utility.HpBarDamageIndicator.Enabled = eventArgs.GetNewValue<bool>();
+                };
+
             Menus.menu.AddSubMenu(drawings);
 
             // Finalize menu
@@ -157,17 +165,7 @@ namespace HuyNKSeries.Champ
             return (float)damage;
         }
 
-        public void CastBasicSkillShot(Spell spell, float range, LeagueSharp.Common.TargetSelector.DamageType type, HitChance hitChance)
-        {
-            var target = LeagueSharp.Common.TargetSelector.GetTarget(range, type);
-
-            if (target == null || !spell.IsReady())
-                return;
-            spell.UpdateSourcePosition();
-
-            if (spell.GetPrediction(target).Hitchance >= hitChance)
-                spell.Cast(target, HuyNkItems.packets());
-        }
+        
         public static void Combo()
         {
             bool useQ = Menus.menu.SubMenu("combo").Item("comboUseQ").GetValue<bool>();
@@ -176,9 +174,9 @@ namespace HuyNKSeries.Champ
             Obj_AI_Hero target;
 
             if (useQ && Q.IsReady())
-                target = LeagueSharp.Common.TargetSelector.GetTarget(Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical);
+                target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical);
             else
-                target = LeagueSharp.Common.TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Menus.player), LeagueSharp.Common.TargetSelector.DamageType.Physical);
+                target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Menus.player),TargetSelector.DamageType.Physical);
 
             if (target == null)
                 return;
@@ -201,31 +199,32 @@ namespace HuyNKSeries.Champ
 
             // Spell usage
             if (useQ && Q.IsReady())
-                HuyNkItems.CastBasicSkillShot(Q, Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical, HitChance.Collision);
+                HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Medium);
                 Q.Cast(target, HuyNkItems.packets());
 
             if (useE && E.IsReady())
             {
-                if (target.HasBuff("KalistaExpungeMarker") && target.Buffs.FirstOrDefault(b => b.DisplayName == "KalistaExpungeMarker").Count >= Menus.menu.SubMenu("combo").Item("comboNumE").GetValue<Slider>().Value)
-                    E.Cast(true);
-                HuyNkItems.CastBasicSkillShot(Q, Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical, HitChance.Collision);
+                E.IsKillable(target);
+                E.Cast(target);
+            
             }
         }
+       
+        
         public static void Harass()
         {
-            if ((Menus.player.Mana / Menus.player.MaxMana) * 100 < Menus.menu.SubMenu("harass").Item("harassMana").GetValue<Slider>().Value)
-                return;
+           
 
-            var target = LeagueSharp.Common.TargetSelector.GetTarget(Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical);
-            if (target == null)
-                return;
+            var target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical);
+          
 
             bool useQ = Menus.menu.SubMenu("harass").Item("harassUseQ").GetValue<bool>();
 
             if (useQ && Q.IsReady())
                 
-                Q.Cast(target, HuyNkItems.packets());
-                HuyNkItems.CastBasicSkillShot(Q, Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical, HitChance.Medium);
+              // Q.Cast(target, HuyNkItems.packets());
+               HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Medium);
+            
         }
         public static void getAvailableJumpSpots()
         {
@@ -291,9 +290,23 @@ namespace HuyNKSeries.Champ
         }
         public static void JungleClear()
         {
-            bool useE = Menus.menu.SubMenu("jungleClear").Item("jungleUseE").GetValue<bool>();
+            bool useQE = Menus.menu.SubMenu("jungleClear").Item("jungleUseE").GetValue<bool>();
 
-            if (useE && E.IsReady())
+            if (useQE && Q.IsReady())
+            {
+                var minions = MinionManager.GetMinions(Menus.player.Position, Q.Range, MinionTypes.All, MinionTeam.Neutral);
+
+                // Check if a jungle mob can die with E
+                foreach (var minion in minions)
+                {
+                    if (Menus.player.GetSpellDamage(minion, SpellSlot.Q) > minion.Health)
+                    {
+                        Q.Cast(true);
+                        break;
+                    }
+                }
+            }
+            if (useQE && E.IsReady())
             {
                 var minions = MinionManager.GetMinions(Menus.player.Position, E.Range, MinionTypes.All, MinionTeam.Neutral);
 
@@ -452,5 +465,7 @@ namespace HuyNKSeries.Champ
             }
         }
 
+
+        public static bool useQ { get; set; }
     }
 }

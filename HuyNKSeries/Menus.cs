@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using LeagueSharp;
 using LeagueSharp.Common;
-using LX_Orbwalker;
+
 using SharpDX;
 
 using Color = System.Drawing.Color;
@@ -32,12 +32,12 @@ namespace HuyNKSeries
 
 
 
-            Menus.menu = new Menu("[HuyNK Series] " + Menus.CHAMP_NAME, "huynks" + Menus.CHAMP_NAME, true);
+            Menus.menu = new Menu("【HuyNK Series】 " + Menus.CHAMP_NAME, "huynks" + Menus.CHAMP_NAME, true);
 
             //Info
             menu.AddSubMenu(new Menu("Thông Tin", "Info"));
             menu.SubMenu("Info").AddItem(new MenuItem("[Author]", "[Tác giả: HuyNK]"));
-            menu.SubMenu("Info").AddItem(new MenuItem("[Paypal]", "[Donate: khachuyvk@gmail.com]"));
+            menu.SubMenu("Info").AddItem(new MenuItem("[Paypal]", "[Ngân Lượng: khachuyvk@gmail.com]"));
 
             //Target selector
             var targetSelectorMenu = new Menu("Chọn mục tiêu", "Target Selector");

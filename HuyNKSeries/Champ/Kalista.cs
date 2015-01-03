@@ -87,10 +87,10 @@ namespace HuyNKSeries.Champ
 
             // Drawings
             Menu drawings = new Menu("Tầm đánh", "drawings");
-            drawings.AddItem(new MenuItem("drawRangeQ", "Vòng Q").SetValue(new Circle(true, Color.FromArgb(150, Color.IndianRed))));
-            drawings.AddItem(new MenuItem("drawRangeW", "Vòng W").SetValue(new Circle(true, Color.FromArgb(150, Color.MediumPurple))));
-            drawings.AddItem(new MenuItem("drawRangeE", "Vòng E").SetValue(new Circle(true, Color.FromArgb(150, Color.DarkRed))));
-            drawings.AddItem(new MenuItem("drawRangeR", "Vòng R").SetValue(new Circle(false, Color.FromArgb(150, Color.Red))));
+            drawings.AddItem(new MenuItem("drawRangeQ", "Vòng Q").SetValue(new Circle(true, Color.FromArgb(150, Color.Aqua))));
+            drawings.AddItem(new MenuItem("drawRangeW", "Vòng W").SetValue(new Circle(true, Color.FromArgb(150, Color.Blue))));
+            drawings.AddItem(new MenuItem("drawRangeE", "Vòng E").SetValue(new Circle(true, Color.FromArgb(150, Color.Chartreuse))));
+            drawings.AddItem(new MenuItem("drawRangeR", "Vòng R").SetValue(new Circle(false, Color.FromArgb(150, Color.Yellow))));
             MenuItem drawComboDamageMenu = new MenuItem("Draw_ComboDamage", "Thanh máu sau khi Combo ").SetValue(true);
             drawings.AddItem(drawComboDamageMenu);
             Utility.HpBarDamageIndicator.DamageToUnit = GetComboDamage;
@@ -263,17 +263,18 @@ namespace HuyNKSeries.Champ
 
             if (!Q.IsReady())
             {
+                
                 Drawing.DrawText(Drawing.Width * 0.44f, Drawing.Height * 0.80f, Color.Red,
-                " SKILL Q HAVEN'T READY");
+                " SKILL Q CHUA HOI DAI CA");
             }
             else
             {
                 Drawing.DrawText(Drawing.Width * 0.39f, Drawing.Height * 0.80f, Color.DarkOrange,
-                    "CLICK TO JUMP");
+                    "Q PHAT NUA HOAC G DE NHAY");
             }
             Vector3 playerPosition = HuyNkItems.Player.Position;
-            Drawing.DrawCircle(ObjectManager.Player.Position, size, Color.RoyalBlue);
-            Obj_AI_Hero     qtarget = LeagueSharp.Common.TargetSelector.GetTarget(Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical);
+            Drawing.DrawCircle(ObjectManager.Player.Position, size, Color.Yellow);
+            Obj_AI_Hero     qtarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical);
             for (int i = 1; i <= n; i++)
             {
                 x = size * Math.Cos(2 * Math.PI * i / n);
@@ -292,7 +293,7 @@ namespace HuyNKSeries.Champ
                         return;
                     }
                   
-                   // Utility.DrawCircle(drawWhere, 20, Color.Red);
+                   Utility.DrawCircle(playerPosition, 20, Color.Yellow);
                     
                 }
             }
@@ -400,8 +401,9 @@ namespace HuyNKSeries.Champ
             }
 
             // General E usage
-            if (useE && E.IsReady())
+            if (bigE && useE && E.IsReady())
             {
+
                 int hitNumber = Config.SliderLinks["waveNumE"].Value.Value;
 
                 // Get surrounding
@@ -456,7 +458,7 @@ namespace HuyNKSeries.Champ
             // Spell ranges
             foreach (var spell in spellList)
             {
-                var circleEntry = Menus.menu.SubMenu("drawings").Item("drawRange" + spell.Slot.ToString()).GetValue<Circle>();
+                var circleEntry = Menus.menu.SubMenu("drawings").Item("drawRange" + spell.Slot).GetValue<Circle>();
                 if (circleEntry.Active)
                     Utility.DrawCircle(Menus.player.Position, spell.Range, circleEntry.Color);
             }

@@ -1,7 +1,9 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LeagueSharp;
+﻿using System.Security.Cryptography.X509Certificates;
+
+﻿using LeagueSharp;
 using LeagueSharp.Common;
 using Microsoft.Win32.SafeHandles;
 using SharpDX;
@@ -174,7 +176,7 @@ namespace HuyNKSeries.Champ
             Obj_AI_Hero target;
 
             if (useQ && Q.IsReady())
-                target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical);
+                target = TargetSelector.GetTarget(Q.Range*1.2f, TargetSelector.DamageType.Physical);
             else
                 target = TargetSelector.GetTarget(Orbwalking.GetRealAutoAttackRange(Menus.player),TargetSelector.DamageType.Physical);
 
@@ -198,24 +200,50 @@ namespace HuyNKSeries.Champ
             }
 
             // Spell usage
-            if (useQ && Q.IsReady())
-                HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Medium);
-                Q.Cast(target, HuyNkItems.packets());
+            if (useQ && Q.IsReady() && !Menus.player.IsDashing())
+                HuyNkItems.CastBasicSkillShot(Q, Q.Range*1.2f, TargetSelector.DamageType.Physical, HitChance.Medium);
+               // Q.Cast(target);
 
-            if (useE && E.IsReady())
+            if (useE && E.IsReady() || E.Instance.State == SpellState.Surpressed)
             {
-                E.IsKillable(target);
-                E.Cast(target);
+                if (Menus.player.Distance(target, true) > Math.Pow(Orbwalking.GetRealAutoAttackRange(Menus.player), 2) && target.HasRendBuff())
+                {
+                    // Get minions around
+                   var minions = ObjectManager.Get<Obj_AI_Minion>().Where(m => m.IsValidTarget(Orbwalking.GetRealAutoAttackRange(Menus.player)));
+
+                    // Check if a minion can die with the current E stacks
+                    if (minions.Any(m => m.IsRendKillable()))
+                        E.Cast(true);
+                    else
+                    {
+                        // Check if a minion can die with one AA and E. Also, the AA minion has be be behind the player direction for a further leap
+                        var minion = VectorHelper.GetDashObjects(minions).FirstOrDefault(m => m.Health > Menus.player.GetAutoAttackDamage(m) && m.Health < Menus.player.GetAutoAttackDamage(m) + Damages.GetRendDamage(m, 1));
+                        if (minion != null)
+                            Config.Menu.Orbwalker.ForceTarget(minion);
+                    }
+                }
+                if (E.InRange(target.ServerPosition) && (target.IsRendKillable() || target.HasRendBuff() && target.GetRendBuff().Count >= Config.SliderLinks["waveNumE"].Value.Value))
+                {
+                    var buff = target.GetRendBuff();
+
+                    // Check if the target would die from E
+                    if (target.IsRendKillable())
+                        E.Cast(true);
+                    // If the target is still in range or the buff is active for longer than 0.25 seconds, if not, cast it
+                    else if (Damages.GetRendDamage(target, buff.Count + 2) < target.Health && target.ServerPosition.Distance(Menus.player.Position, true) > Math.Pow(E.Range * 0.8, 2) || buff.EndTime - Game.Time <= 0.25)
+                        E.Cast(true);
+                }
             
             }
+
         }
+
        
-        
         public static void Harass()
         {
            
 
-            var target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical);
+           
           
 
             bool useQ = Menus.menu.SubMenu("harass").Item("harassUseQ").GetValue<bool>();
@@ -290,30 +318,18 @@ namespace HuyNKSeries.Champ
         }
         public static void JungleClear()
         {
-            bool useQE = Menus.menu.SubMenu("jungleClear").Item("jungleUseE").GetValue<bool>();
+            bool useE = Menus.menu.SubMenu("jungleClear").Item("jungleUseE").GetValue<bool>();
 
-            if (useQE && Q.IsReady())
-            {
-                var minions = MinionManager.GetMinions(Menus.player.Position, Q.Range, MinionTypes.All, MinionTeam.Neutral);
+           // bool useE = Config.BoolLinks["jungleUseE"].Value;
 
-                // Check if a jungle mob can die with E
-                foreach (var minion in minions)
-                {
-                    if (Menus.player.GetSpellDamage(minion, SpellSlot.Q) > minion.Health)
-                    {
-                        Q.Cast(true);
-                        break;
-                    }
-                }
-            }
-            if (useQE && E.IsReady())
+            if (useE && E.IsReady())
             {
                 var minions = MinionManager.GetMinions(Menus.player.Position, E.Range, MinionTypes.All, MinionTeam.Neutral);
 
                 // Check if a jungle mob can die with E
                 foreach (var minion in minions)
                 {
-                    if (Menus.player.GetSpellDamage(minion, SpellSlot.E) > minion.Health)
+                    if (minion.IsRendKillable())
                     {
                         E.Cast(true);
                         break;
@@ -332,9 +348,9 @@ namespace HuyNKSeries.Champ
             bool bigE = Menus.menu.SubMenu("waveClear").Item("waveBigE").GetValue<bool>();
 
             // Q usage
-            if (useQ && Q.IsReady())
+            if (useQ && Q.IsReady() && !Menus.player.IsDashing())
             {
-                int hitNumber = Menus.menu.SubMenu("waveClear").Item("waveNumQ").GetValue<Slider>().Value;
+                int hitNumber = Config.SliderLinks["waveNumQ"].Value.Value;
 
                 // Get minions in range
                 var minions = ObjectManager.Get<Obj_AI_Minion>().Where(m => m.BaseSkinName.Contains("Minion") && m.IsValidTarget(Q.Range)).ToList();
@@ -356,25 +372,23 @@ namespace HuyNKSeries.Champ
                         var targets = prediction.CollisionObjects;
                         // Sort them by distance
                         targets.Sort((t1, t2) => t1.Distance(Menus.player, true).CompareTo(t2.Distance(Menus.player, true)));
+                        // Add the initial minion as it won't be in the list
+                        targets.Add(minion);
 
-                        // Validate
-                        if (targets.Count > 0)
+                        // Loop through the next targets to see if they will die with the Q hitting
+                        for (int i = 0; i < targets.Count; i++)
                         {
-                            // Loop through the next targets to see if they will die with the Q hitting
-                            for (int i = 0; i < targets.Count; i++)
+                            if (Menus.player.GetSpellDamage(targets[i], SpellSlot.Q) * 0.9 < targets[i].Health || i == targets.Count)
                             {
-                                if (Menus.player.GetSpellDamage(targets[i], SpellSlot.Q) < targets[i].Health || i == targets.Count)
+                                // Can't kill this minion, check result so far
+                                if (i >= hitNumber && (bestResult == null || bestHitCount < i))
                                 {
-                                    // Can't kill this minion, check result so far
-                                    if (i >= hitNumber && (bestResult == null || bestHitCount < i))
-                                    {
-                                        bestHitCount = i;
-                                        bestResult = prediction;
-                                    }
-
-                                    // Break the loop cuz can't kill target
-                                    break;
+                                    bestHitCount = i;
+                                    bestResult = prediction;
                                 }
+
+                                // Break the loop cuz can't kill target
+                                break;
                             }
                         }
                     }
@@ -388,10 +402,10 @@ namespace HuyNKSeries.Champ
             // General E usage
             if (useE && E.IsReady())
             {
-                int hitNumber = Menus.menu.SubMenu("waveClear").Item("waveNumE").GetValue<Slider>().Value;
+                int hitNumber = Config.SliderLinks["waveNumE"].Value.Value;
 
                 // Get surrounding
-                var minions = MinionManager.GetMinions(Menus.player.Position, E.Range);
+                var minions = ObjectManager.Get<Obj_AI_Minion>().Where(m => m.IsValidTarget(E.Range) && m.BaseSkinName.Contains("Minion")).ToList();
 
                 if (minions.Count >= hitNumber)
                 {
@@ -399,30 +413,13 @@ namespace HuyNKSeries.Champ
                     int conditionMet = 0;
                     foreach (var minion in minions)
                     {
-                        if (Menus.player.GetSpellDamage(minion, SpellSlot.E) > minion.Health)
+                        if (minion.IsRendKillable())
                             conditionMet++;
                     }
 
                     // Cast on condition met
                     if (conditionMet >= hitNumber)
                         E.Cast(true);
-                }
-            }
-
-            // Always E on big minions
-            if (bigE && E.IsReady())
-            {
-                // Get big minions
-                var minions = MinionManager.GetMinions(Menus.player.Position, E.Range).Where(m => m.BaseSkinName.Contains("MinionSiege"));
-
-                foreach (var minion in minions)
-                {
-                    if (Menus.player.GetSpellDamage(minion, SpellSlot.E) > minion.Health)
-                    {
-                        // On first big minion which can die with E, use E
-                        E.Cast(true);
-                        break;
-                    }
                 }
             }
         }
@@ -466,6 +463,6 @@ namespace HuyNKSeries.Champ
         }
 
 
-        public static bool useQ { get; set; }
+        
     }
 }

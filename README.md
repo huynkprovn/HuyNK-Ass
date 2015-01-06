@@ -3,7 +3,6 @@ HuyNK-Ass
 
 HuyNK Series
 
---Support : Ezreal , Kalista, Teemo 
---waiting...Katarina ,Casiopia,Akali, 
+--Support : Ezreal , Kalista, Teemo ,Add Jinx new
 
------SAwardness Translation Vietnam  comming soon
+

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 ﻿using System.Security.Cryptography.X509Certificates;
-
+﻿using HuyNKSeries.Ultil;
 ﻿using LeagueSharp;
 using LeagueSharp.Common;
 using Microsoft.Win32.SafeHandles;
 using SharpDX;
 
 using Color = System.Drawing.Color;
+﻿using Config = HuyNKSeries.Ultil.Config;
 
 namespace HuyNKSeries.Champ
 {
@@ -222,7 +223,7 @@ namespace HuyNKSeries.Champ
                             Config.Menu.Orbwalker.ForceTarget(minion);
                     }
                 }
-                if (E.InRange(target.ServerPosition) && (target.IsRendKillable() || target.HasRendBuff() && target.GetRendBuff().Count >= Config.SliderLinks["waveNumE"].Value.Value))
+                if (E.IsInRange(target.ServerPosition) && (target.IsRendKillable() || target.HasRendBuff() && target.GetRendBuff().Count >= Config.SliderLinks["waveNumE"].Value.Value))
                 {
                     var buff = target.GetRendBuff();
 

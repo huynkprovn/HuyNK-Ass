@@ -19,7 +19,7 @@ namespace HuyNKSeries
         //summoners
         public static SpellSlot IgniteSlot = ObjectManager.Player.GetSpellSlot("SummonerDot");
         //HuyNkItems
-        public static Items.Item DFG = Utility.Map.GetMap()._MapType == Utility.Map.MapType.TwistedTreeline ? new LeagueSharp.Common.Items.Item(3188, 750) : new LeagueSharp.Common.Items.Item(3128, 750);
+        public static Items.Item DFG = Utility.Map.GetMap().Type == Utility.Map.MapType.TwistedTreeline ? new LeagueSharp.Common.Items.Item(3188, 750) : new LeagueSharp.Common.Items.Item(3128, 750);
         public static Items.Item Botrk = new Items.Item(3153, 450);
         public static Items.Item Bilge = new Items.Item(3144, 450);
         public static Items.Item Hex = new Items.Item(3146, 700);

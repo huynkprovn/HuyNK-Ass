@@ -759,7 +759,7 @@ namespace JeonUtility
                 {
                     if (Jlib.getm_bool("noti_karthus") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
                     {
-                        Spell R = new Spell(SpellSlot.R, 100000);
+                        Spell R = new Spell(SpellSlot.R, 20000);
                         var target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Magical);
                         var damage = R.GetDamage(target);
 
@@ -920,7 +920,7 @@ namespace JeonUtility
 
                     if (jumpspell != null)
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("j2w_bool") && jumpspell != null), "CAM MAY NHẢY");
+                        addText(y + (interval * i), (Jlib.getm_bool("j2w_bool") && jumpspell != null), "Cam mat nhay");
                         i++;
                     }
                     if (defslot != SpellSlot.Unknown)

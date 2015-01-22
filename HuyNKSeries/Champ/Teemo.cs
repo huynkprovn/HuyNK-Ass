@@ -8,9 +8,9 @@ using LeagueSharp.Common;
 
 namespace HuyNKSeries.Champ
 {
-    class jinx : Champion
+    class Teemo : Champion
     {
-        public jinx()
+        public Teemo()
         {
             SetUpSpells();
             LoadMenu();
@@ -122,7 +122,7 @@ namespace HuyNKSeries.Champ
 
         private void UseSpells(bool useQ, bool useW, bool useE, bool useR, string source)
         {
-            var target = LeagueSharp.Common.TargetSelector.GetTarget(Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Magical);
+            var target = TargetSelector.GetTarget(Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Magical);
 
             if (target != null)
             {

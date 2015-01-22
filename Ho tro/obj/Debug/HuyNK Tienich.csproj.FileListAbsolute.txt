@@ -1,0 +1,16 @@
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\Hotro.exe.config
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\obj\Debug\HuyNK Tienich.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\Hotro.exe
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\Hotro.pdb
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\LeagueSharp.Common.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\LeagueSharp.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\SharpDX.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\SharpDX.Toolkit.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\SharpDX.Toolkit.Graphics.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\clipper_library.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\LeagueSharp.xml
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\SharpDX.Toolkit.xml
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\bin\Release\SharpDX.Toolkit.Graphics.xml
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\obj\Debug\Hotro.exe
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\Ho tro\obj\Debug\Hotro.pdb

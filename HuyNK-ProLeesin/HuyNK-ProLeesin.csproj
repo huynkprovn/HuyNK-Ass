@@ -39,43 +39,43 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BuffManagerLib">
-      <HintPath>C:\LSharp\\System\BuffManagerLib.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\BuffManagerLib.dll</HintPath>
     </Reference>
     <Reference Include="clipper_library">
-      <HintPath>C:\LSharp\\System\clipper_library.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\clipper_library.dll</HintPath>
     </Reference>
     <Reference Include="DevCommom">
-      <HintPath>C:\LSharp\\System\DevCommom.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\DevCommom.dll</HintPath>
     </Reference>
     <Reference Include="dmgLib2">
-      <HintPath>C:\LSharp\\System\dmgLib2.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\dmgLib2.dll</HintPath>
     </Reference>
     <Reference Include="Evade">
-      <HintPath>C:\LSharp\\System\Evade.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\Evade.dll</HintPath>
     </Reference>
     <Reference Include="Igniter">
-      <HintPath>C:\LSharp\\System\Igniter.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\Igniter.dll</HintPath>
     </Reference>
     <Reference Include="LeagueSharp">
-      <HintPath>C:\LSharp\\System\LeagueSharp.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\LeagueSharp.dll</HintPath>
     </Reference>
     <Reference Include="LeagueSharp.AppDomainManager">
-      <HintPath>C:\LSharp\\System\LeagueSharp.AppDomainManager.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\LeagueSharp.AppDomainManager.dll</HintPath>
     </Reference>
     <Reference Include="LeagueSharp.Common">
-      <HintPath>C:\LSharp\\System\LeagueSharp.Common.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\LeagueSharp.Common.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>C:\LSharp\\System\SharpDX.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>C:\LSharp\\System\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Toolkit">
-      <HintPath>C:\LSharp\\System\SharpDX.Toolkit.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\SharpDX.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Toolkit.Graphics">
-      <HintPath>C:\LSharp\\System\SharpDX.Toolkit.Graphics.dll</HintPath>
+      <HintPath>C:\HuyNK_LSharp\\System\SharpDX.Toolkit.Graphics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

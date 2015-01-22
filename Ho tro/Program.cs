@@ -9,6 +9,7 @@ using System.Runtime.Remoting.Messaging;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
+using Ultils;
 using Color = System.Drawing.Color;
 #endregion
 
@@ -40,7 +41,7 @@ namespace JeonUtility
         public static bool text_Isrender = false;
         public static bool textsmite_Isrender = false;
 
-        public static int req_ignitelevel { get { return Jlib.getm_value("igniteLv"); } }
+        public static int req_ignitelevel { get { return ultils.getm_value("igniteLv"); } }
 
         public static float pastTime = 0;
 
@@ -111,14 +112,14 @@ namespace JeonUtility
         private static void OnGameLoad(EventArgs args)
         {
             string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            Game.PrintChat("<font color ='#33FFFF'>Hỗ trợ" +version+" </font>Loaded!");
+            Game.PrintChat("<font color ='#33FFFF'>Ho Tro" +version+" </font>Loaded!");
             setSmiteSlot();
             setIgniteSlot();
             setDefSpellSlot();
 
             #region 
             #region  Main Menu
-            baseMenu = new Menu("Hỗ Trợ HuyNK Series", "JeonUtility", true);
+            baseMenu = new Menu("Hỗ Trợ HuyNK Series", "Ultils", true);
             baseMenu.AddToMainMenu();
             baseMenu.AddItem(new MenuItem("base_stat", "Di chuyển vị trí").SetValue(true));
             baseMenu.AddItem(new MenuItem("x", "HUD_X").SetValue(new Slider(600, 0, Monitor.Width)));
@@ -307,7 +308,7 @@ namespace JeonUtility
 
         private static void OnDraw_EndScene(EventArgs args)
         {
-            if (Jlib.getm_bool("draw_turret"))
+            if (ultils.getm_bool("draw_turret"))
             {
                 foreach (var t in ObjectManager.Get<Obj_AI_Turret>().Where(t => !t.IsDead && t.IsEnemy))
                 {
@@ -370,7 +371,7 @@ namespace JeonUtility
             #endregion
 
                 #region AutoIgnite
-                if (Jlib.getm_bool("AutoIgnite") && igniteSlot != SpellSlot.Unknown &&
+                if (ultils.getm_bool("AutoIgnite") && igniteSlot != SpellSlot.Unknown &&
                     Player.Level >= req_ignitelevel)
                 {
                     float ignitedamage;
@@ -395,7 +396,7 @@ namespace JeonUtility
                 #endregion
 
                 #region Spelltracker
-                if (Jlib.getm_bool("tracker_enemyspells"))
+                if (ultils.getm_bool("tracker_enemyspells"))
                 {
                     foreach (var target in
                         ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero != null && hero.IsValid && (!hero.IsMe && hero.IsHPBarRendered)))
@@ -502,7 +503,7 @@ namespace JeonUtility
             #endregion wardtracker
 
                 #region Jump2Ward (Jax,Kata,LeeSin)
-                if (Jlib.getm_bool("j2w_bool"))
+                if (ultils.getm_bool("j2w_bool"))
                 {
                     List<String> champs = new List<String>();
                     champs.Add("LeeSin"); champs.Add("Katarina"); champs.Add("Jax");
@@ -531,7 +532,7 @@ namespace JeonUtility
                     }
 
 
-                    if (Jlib.getm_bool("j2w_info"))
+                    if (ultils.getm_bool("j2w_info"))
                     {
                         Game.PrintChat("Tuong : " + Player.ChampionName);
                         Game.PrintChat("Co the^? : " + canw2j);
@@ -545,7 +546,7 @@ namespace JeonUtility
                 #endregion
 
                 #region  Stacks
-                if (Jlib.getm_bool("st_twitch") && Player.ChampionName == "Twitch")
+                if (ultils.getm_bool("st_twitch") && Player.ChampionName == "Twitch")
                 {
                     Spell E = new Spell(SpellSlot.E, 1200);
                     var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
@@ -558,7 +559,7 @@ namespace JeonUtility
                             if (damage >= target.Health && E.IsReady())
                                 E.Cast();
 
-                            if (Jlib.getm_bool("st_bool"))
+                            if (ultils.getm_bool("st_bool"))
                             {
                                 String t_damage = Convert.ToInt64(damage).ToString() + "(" + venoms.Count + ")";
                                 Drawing.DrawText(target.HPBarPosition.X, target.HPBarPosition.Y - 5, Color.Red, t_damage);
@@ -567,7 +568,7 @@ namespace JeonUtility
                     }
                 }
 
-                if (Jlib.getm_bool("st_kalista") && Player.ChampionName == "Kalista")
+                if (ultils.getm_bool("st_kalista") && Player.ChampionName == "Kalista")
                 {
                     Spell E = new Spell(SpellSlot.E, 900);
                     if (E.IsReady())
@@ -580,7 +581,7 @@ namespace JeonUtility
                                 var damage = getKaliDmg(target, venoms.Count, Player_totalAD, E.Level);
                                 if (damage >= target.Health)
                                     E.Cast();
-                                if (Jlib.getm_bool("st_bool"))
+                                if (ultils.getm_bool("st_bool"))
                                 {
                                     String t_damage = Convert.ToInt64(damage).ToString() + "(" + venoms.Count + ")";
                                     Drawing.DrawText(target.HPBarPosition.X, target.HPBarPosition.Y - 5, Color.Red, t_damage);
@@ -596,7 +597,7 @@ namespace JeonUtility
                                 && (mob.Name.Contains("SRU_Dragon") || mob.Name.Contains("SRU_Baron")))
                                 E.Cast();
 
-                            if (Jlib.getm_bool("st_bool"))
+                            if (ultils.getm_bool("st_bool"))
                             {
                                 String t_damage = Convert.ToInt64(damage).ToString() + "(" + venoms.Count + ")";
                                 Drawing.DrawText(mob.HPBarPosition.X, mob.HPBarPosition.Y - 5, Color.Red, t_damage);
@@ -610,11 +611,11 @@ namespace JeonUtility
                 //item
 
                 int tempItemid = 3157;
-                if (Jlib.getm_bool("useitem_zhonya") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid))
+                if (ultils.getm_bool("useitem_zhonya") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid))
                 {
                     foreach (var p_item in Player.InventoryItems.Where(item => item.Id == ItemId.Zhonyas_Hourglass))
                     {
-                        if (Player.HealthPercentage() <= (float)Jlib.getm_value("useitem_p_zhonya")
+                        if (Player.HealthPercentage() <= (float)ultils.getm_value("useitem_p_zhonya")
                             && !Player.Buffs.Any(buff => buff.DisplayName == "Chrono Shift"))
                             Player.Spellbook.CastSpell(p_item.SpellSlot);
                     }
@@ -623,15 +624,15 @@ namespace JeonUtility
 
 
                 tempItemid = Convert.ToInt32(ItemId.Blade_of_the_Ruined_King);
-                if (Jlib.getm_bool("useitem_botrk") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid)
-                                                            && Player.HealthPercentage() <= (float)Jlib.getm_value("useitem_p_botrk"))
+                if (ultils.getm_bool("useitem_botrk") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid)
+                                                            && Player.HealthPercentage() <= (float)ultils.getm_value("useitem_p_botrk"))
                 {
                     Obj_AI_Hero target = null;
                     Double max_healpoint = 0;
                     foreach (var p_item in Player.InventoryItems.Where(item => item.Id == ItemId.Blade_of_the_Ruined_King))
                     {
                         if (ObjectManager.Get<Obj_AI_Hero>().Any(h => h.IsEnemy && !h.IsDead && h.IsVisible &&
-                            Vector3.Distance(h.Position, Player.Position) <= Jlib.getm_value("useitem_botrk_atg_p")) && Jlib.getm_bool("useitem_botrk_atg"))
+                            Vector3.Distance(h.Position, Player.Position) <= ultils.getm_value("useitem_botrk_atg_p")) && ultils.getm_bool("useitem_botrk_atg"))
                             Player.Spellbook.CastSpell(p_item.SpellSlot, target);
 
                         foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.IsEnemy && h.IsValid && h.IsVisible && Vector3.Distance(h.Position, Player.Position) <= 450))
@@ -648,7 +649,7 @@ namespace JeonUtility
                 }
 
                 tempItemid = Convert.ToInt32(ItemId.Mikaels_Crucible);
-                if (Jlib.getm_bool("useitem_mikaels") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid) && !Utility.InShop(Player))
+                if (ultils.getm_bool("useitem_mikaels") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid) && !Utility.InShop(Player))
                 {
                     List<BuffType> bufflist = new List<BuffType>();
                     getbufflist(bufflist, ItemId.Mikaels_Crucible);
@@ -656,15 +657,15 @@ namespace JeonUtility
                     {
                         foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(h => h.IsAlly && !h.IsMe && h.IsValid && h.IsVisible && Vector3.Distance(h.Position, Player.Position) <= 800))
                         {
-                            if (hero.HealthPercentage() <= (float)Jlib.getm_value("useitem_p_mikaels"))
+                            if (hero.HealthPercentage() <= (float)ultils.getm_value("useitem_p_mikaels"))
                                 Player.Spellbook.CastSpell(p_item.SpellSlot, hero);
 
-                            if (Jlib.getm_bool("mikaels_cc_bool"))
+                            if (ultils.getm_bool("mikaels_cc_bool"))
                             {
                                 foreach (var buff in hero.Buffs)
                                 {
                                     if (bufflist.Any(b => b == buff.Type))
-                                        Utility.DelayAction.Add(Jlib.getm_value("useitem_p_mikaels_delay"), () => { Player.Spellbook.CastSpell(p_item.SpellSlot, hero); });
+                                        Utility.DelayAction.Add(ultils.getm_value("useitem_p_mikaels_delay"), () => { Player.Spellbook.CastSpell(p_item.SpellSlot, hero); });
                                 }
                             }
                         }
@@ -672,7 +673,7 @@ namespace JeonUtility
                 }
                 tempItemid = Convert.ToInt32(ItemId.Quicksilver_Sash);
                 int tempItemid2 = Convert.ToInt32(ItemId.Mercurial_Scimitar);
-                if (Jlib.getm_bool("useitem_qs_bool") && !Utility.InShop(Player))
+                if (ultils.getm_bool("useitem_qs_bool") && !Utility.InShop(Player))
                 {
                     if ((Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid)) || ((Items.HasItem(tempItemid2) && Items.CanUseItem(tempItemid2))))
                     {
@@ -682,7 +683,7 @@ namespace JeonUtility
                         {
                             foreach (var buff in Player.Buffs)
                             {
-                                Utility.DelayAction.Add(Jlib.getm_value("useitem_p_qs_delay"), () =>
+                                Utility.DelayAction.Add(ultils.getm_value("useitem_p_qs_delay"), () =>
                                 {
                                     if (bufflist.Any(b => b == buff.Type))
                                         Player.Spellbook.CastSpell(p_item.SpellSlot);
@@ -699,17 +700,17 @@ namespace JeonUtility
 
                 //potions
                 tempItemid = Convert.ToInt32(ItemId.Crystalline_Flask);
-                if (Jlib.getm_bool("useitem_flask") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid))
+                if (ultils.getm_bool("useitem_flask") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid))
                 {
                     foreach (var p_item in Player.InventoryItems.Where(item => item.Id == ItemId.Crystalline_Flask && !Player.HasBuff("ItemCrystalFlask")))
                     {
-                        if (Player.HealthPercentage() <= (float)Jlib.getm_value("useitem_p_fla") && !Utility.InShop(Player))
+                        if (Player.HealthPercentage() <= (float)ultils.getm_value("useitem_p_fla") && !Utility.InShop(Player))
                             Player.Spellbook.CastSpell(p_item.SpellSlot);
                     }
                 }
 
                 tempItemid = Convert.ToInt32(ItemId.Health_Potion);
-                if (Jlib.getm_bool("useitem_hppotion"))
+                if (ultils.getm_bool("useitem_hppotion"))
                 {
                     ItemId item = ItemId.Health_Potion;
                     if (Player.InventoryItems.Any(t => (t.Id == ItemId.Health_Potion || Convert.ToInt32(t.Id) == 2010)))
@@ -717,7 +718,7 @@ namespace JeonUtility
                         if (Player.InventoryItems.First(t => (t.Id == ItemId.Health_Potion || Convert.ToInt32(t.Id) == 2010)).Id != ItemId.Health_Potion)
                             item = ItemId.Unknown;
 
-                        if (Player.HealthPercentage() <= (float)Jlib.getm_value("useitem_p_hp") && Player.InventoryItems.Any(t => (t.Id == ItemId.Health_Potion || Convert.ToInt32(t.Id) == 2010)))
+                        if (Player.HealthPercentage() <= (float)ultils.getm_value("useitem_p_hp") && Player.InventoryItems.Any(t => (t.Id == ItemId.Health_Potion || Convert.ToInt32(t.Id) == 2010)))
                         {
                             if (!Player.HasBuff("ItemMiniRegenPotion") && item == ItemId.Unknown)
                                 Player.Spellbook.CastSpell(Player.InventoryItems.First(t => Convert.ToInt32(t.Id) == 2010).SpellSlot);
@@ -731,20 +732,20 @@ namespace JeonUtility
 
 
                 tempItemid = Convert.ToInt32(ItemId.Mana_Potion);
-                if (Jlib.getm_bool("useitem_manapotion") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid))
+                if (ultils.getm_bool("useitem_manapotion") && Items.HasItem(tempItemid) && Items.CanUseItem(tempItemid))
                 {
                     foreach (var p_item in Player.InventoryItems.Where(item => item.Id == ItemId.Mana_Potion && !Player.HasBuff("Mana Potion") && !Player.HasBuff("ItemCrystalFlask")))
                     {
-                        if (Player.ManaPercentage() <= (float)Jlib.getm_value("useitem_p_mana") && !Utility.InShop(Player))
+                        if (Player.ManaPercentage() <= (float)ultils.getm_value("useitem_p_mana") && !Utility.InShop(Player))
                         {
                             Player.Spellbook.CastSpell(p_item.SpellSlot);
                         }
                     }
                 }
                 //spell
-                if (Jlib.getm_bool("usespell") && defslot != SpellSlot.Unknown)
+                if (ultils.getm_bool("usespell") && defslot != SpellSlot.Unknown)
                 {
-                    if (Player.HealthPercentage() <= (float)Jlib.getm_value("usespell_hp") && !Utility.InShop(Player))
+                    if (Player.HealthPercentage() <= (float)ultils.getm_value("usespell_hp") && !Utility.InShop(Player))
                     {
                         if (Player.Spellbook.CanUseSpell(defslot) == SpellState.Ready)
                             Player.Spellbook.CastSpell(defslot);
@@ -757,7 +758,7 @@ namespace JeonUtility
                 //Karthus
                 if (Player.ChampionName == "Karthus")
                 {
-                    if (Jlib.getm_bool("noti_karthus") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
+                    if (ultils.getm_bool("noti_karthus") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
                     {
                         Spell R = new Spell(SpellSlot.R, 20000);
                         var target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Magical);
@@ -780,7 +781,7 @@ namespace JeonUtility
                 //cait
                 if (Player.ChampionName == "Caitlyn")
                 {
-                    if (Jlib.getm_bool("noti_cait") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
+                    if (ultils.getm_bool("noti_cait") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
                     {
                         Spell R = new Spell(SpellSlot.R, 1500 + (500 * Player.Spellbook.GetSpell(SpellSlot.R).Level));
                         var target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Physical);
@@ -792,7 +793,7 @@ namespace JeonUtility
                             if (!text_Isrender)
                                 text_notifier.Add();
                             text_Isrender = true;
-                            Jlib.targetPing(target.Position.To2D());
+                            ultils.targetPing(target.Position.To2D());
 
 
                         }
@@ -806,7 +807,7 @@ namespace JeonUtility
                 //ez
                 if (Player.ChampionName == "Ezreal" || Player.ChampionName == "Jinx" || Player.ChampionName == "Ashe")
                 {
-                    if (Jlib.getm_bool("noti_ez") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
+                    if (ultils.getm_bool("noti_ez") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
                     {
                         Spell R = new Spell(SpellSlot.R, 100000);
                         var target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Magical);
@@ -818,7 +819,7 @@ namespace JeonUtility
                             if (!text_Isrender)
                                 text_notifier.Add();
                             text_Isrender = true;
-                            Jlib.targetPing(target.Position.To2D());
+                            ultils.targetPing(target.Position.To2D());
                         }
                     }
                     else
@@ -830,18 +831,18 @@ namespace JeonUtility
                 //shen
                 if (Player.ChampionName == "Shen")
                 {
-                    if (Jlib.getm_bool("noti_shen") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
+                    if (ultils.getm_bool("noti_shen") && Player.Spellbook.CanUseSpell(SpellSlot.R) == SpellState.Ready)
                     {
 
                         foreach (var hero in ObjectManager.Get<Obj_AI_Hero>().Where(hero => hero.IsAlly && !hero.IsMe && !hero.IsDead && hero.IsValid))
                         {
-                            if (hero.HealthPercentage() <= Jlib.getm_value("noti_shenhp"))
+                            if (hero.HealthPercentage() <= ultils.getm_value("noti_shenhp"))
                             {
                                 if (!text_Isrender)
                                     text_help.Add();
                                 text_Isrender = true;
 
-                                Jlib.targetPing(hero.Position.To2D(), Packet.PingType.AssistMe);
+                                ultils.targetPing(hero.Position.To2D(), Packet.PingType.AssistMe);
                             }
                             else
                             {
@@ -893,12 +894,12 @@ namespace JeonUtility
                 #endregion
 
                 #region Status on hud
-                if (Jlib.getm_bool("base_stat"))
+                if (ultils.getm_bool("base_stat"))
                 {
                     
 
-                    int x = Monitor.Width - Jlib.getm_value("x");
-                    int y = Monitor.Height - Jlib.getm_value("y");
+                    int x = Monitor.Width - ultils.getm_value("x");
+                    int y = Monitor.Height - ultils.getm_value("y");
                     int interval = 20;
                     int i = 0;
 
@@ -908,103 +909,103 @@ namespace JeonUtility
 
                     if (smiteSlot != SpellSlot.Unknown)
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("AutoSmite") && smiteSlot != SpellSlot.Unknown), "TU DONG TRUNG PHAT");
+                        addText(y + (interval * i), (ultils.getm_bool("AutoSmite") && smiteSlot != SpellSlot.Unknown), "TU DONG TRUNG PHAT");
                         i++;
                     }
 
                     if (igniteSlot != SpellSlot.Unknown)
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("AutoIgnite") && igniteSlot != SpellSlot.Unknown), "TU DONG THIEU DOT");
+                        addText(y + (interval * i), (ultils.getm_bool("AutoIgnite") && igniteSlot != SpellSlot.Unknown), "TU DONG THIEU DOT");
                         i++;
                     }
 
                     if (jumpspell != null)
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("j2w_bool") && jumpspell != null), "Cam mat nhay");
+                        addText(y + (interval * i), (ultils.getm_bool("j2w_bool") && jumpspell != null), "Cam mat nhay");
                         i++;
                     }
                     if (defslot != SpellSlot.Unknown)
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("usespell") && defslot != SpellSlot.Unknown), string.Format("SpellCast{0}", filterspellname(Player.Spellbook.GetSpell(defslot).Name).ToUpper()));
+                        addText(y + (interval * i), (ultils.getm_bool("usespell") && defslot != SpellSlot.Unknown), string.Format("SpellCast{0}", filterspellname(Player.Spellbook.GetSpell(defslot).Name).ToUpper()));
                         i++;
                     }
                     if (Items.HasItem(Convert.ToInt32(ItemId.Crystalline_Flask)))
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("useitem_flask")), string.Format("Use Flask({0}%)", Jlib.getm_value("useitem_p_flask")));
+                        addText(y + (interval * i), (ultils.getm_bool("useitem_flask")), string.Format("Use Flask({0}%)", ultils.getm_value("useitem_p_flask")));
                         i++;
                     }
                     if (Items.HasItem(Convert.ToInt32(ItemId.Health_Potion)))
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("useitem_hppotion")), string.Format("Use HP Potion({0}%)", Jlib.getm_value("useitem_p_hp")));
+                        addText(y + (interval * i), (ultils.getm_bool("useitem_hppotion")), string.Format("Use HP Potion({0}%)", ultils.getm_value("useitem_p_hp")));
                         i++;
                     }
                     if (Items.HasItem(Convert.ToInt32(ItemId.Mana_Potion)))
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("useitem_manapotion")), string.Format("Use Mana Potion({0}%)", Jlib.getm_value("useitem_p_mana")));
+                        addText(y + (interval * i), (ultils.getm_bool("useitem_manapotion")), string.Format("Use Mana Potion({0}%)", ultils.getm_value("useitem_p_mana")));
                         i++;
                     }
                     if (Items.HasItem(Convert.ToInt32(ItemId.Zhonyas_Hourglass)))
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("useitem_zhonya")), string.Format("UseZhonya({0}%)", Jlib.getm_value("useitem_p_zhonya")));
+                        addText(y + (interval * i), (ultils.getm_bool("useitem_zhonya")), string.Format("UseZhonya({0}%)", ultils.getm_value("useitem_p_zhonya")));
                         i++;
                     }
                     if (Items.HasItem(Convert.ToInt32(ItemId.Blade_of_the_Ruined_King)))
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("useitem_botrk")), string.Format("UseBOTRK({0}%)", Jlib.getm_value("useitem_p_botrk")));
+                        addText(y + (interval * i), (ultils.getm_bool("useitem_botrk")), string.Format("UseBOTRK({0}%)", ultils.getm_value("useitem_p_botrk")));
                         i++;
                     }
                     if (Items.HasItem(Convert.ToInt32(ItemId.Mikaels_Crucible)))
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("useitem_mikaels")), string.Format("Use Mikaels({0}%{1}", Jlib.getm_value("useitem_p_mikaels"),
-                            Jlib.getm_bool("mikaels_cc_bool") ? ",CC)" : ")"));
+                        addText(y + (interval * i), (ultils.getm_bool("useitem_mikaels")), string.Format("Use Mikaels({0}%{1}", ultils.getm_value("useitem_p_mikaels"),
+                            ultils.getm_bool("mikaels_cc_bool") ? ",CC)" : ")"));
                         i++;
                     }
                     if (Items.HasItem(Convert.ToInt32(ItemId.Quicksilver_Sash)))
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("useitem_qs_bool")), string.Format("Use QS(delay:{0})", Jlib.getm_value("useitem_p_qs_delay")));
+                        addText(y + (interval * i), (ultils.getm_bool("useitem_qs_bool")), string.Format("Use QS(delay:{0})", ultils.getm_value("useitem_p_qs_delay")));
                         i++;
                     }
                     if (Items.HasItem(Convert.ToInt32(ItemId.Mercurial_Scimitar)))
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("useitem_qs_bool")), string.Format("Use Scimitar(delay:{0})", Jlib.getm_value("useitem_p_qs_delay")));
+                        addText(y + (interval * i), (ultils.getm_bool("useitem_qs_bool")), string.Format("Use Scimitar(delay:{0})", ultils.getm_value("useitem_p_qs_delay")));
                         i++;
                     }
                     //champ
                     #region stack
                     if (Player.ChampionName == "Twitch")
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("st_twitch")), "CastTwitchE");
+                        addText(y + (interval * i), (ultils.getm_bool("st_twitch")), "CastTwitchE");
                         i++;
                     }
                     if (Player.ChampionName == "Kalista")
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("st_kalista")), "CastKalistaE");
+                        addText(y + (interval * i), (ultils.getm_bool("st_kalista")), "CastKalistaE");
                         i++;
                     }
                     #endregion
                     #region notifier
                     if (Player.ChampionName == "Karthus")
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("noti_karthus")), "UltNotifiler");
+                        addText(y + (interval * i), (ultils.getm_bool("noti_karthus")), "UltNotifiler");
                     }
                     if (Player.ChampionName == "Ezreal" || Player.ChampionName == "Jinx" || Player.ChampionName == "Ashe")
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("noti_ez")), "UltNotifiler");
+                        addText(y + (interval * i), (ultils.getm_bool("noti_ez")), "UltNotifiler");
                     }
                     if (Player.ChampionName == "Caitlyn")
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("noti_cait")), "UltNotifiler");
+                        addText(y + (interval * i), (ultils.getm_bool("noti_cait")), "UltNotifiler");
                     }
                     if (Player.ChampionName == "Shen")
                     {
-                        addText(y + (interval * i), (Jlib.getm_bool("noti_shen")), "UltNotifiler");
+                        addText(y + (interval * i), (ultils.getm_bool("noti_shen")), "UltNotifiler");
                     }
                     #endregion
                 }
                 #endregion
 
                 #region AutoSmite
-                if (Jlib.getm_bool("AutoSmite") && smiteSlot != SpellSlot.Unknown)
+                if (ultils.getm_bool("AutoSmite") && smiteSlot != SpellSlot.Unknown)
                 {
                     if ((baseMenu.Item("smite_holdkey").GetValue<KeyBind>().Active || baseMenu.Item("smite_enablekey").GetValue<KeyBind>().Active))
                     {
@@ -1221,44 +1222,44 @@ namespace JeonUtility
         {
             if (whatitem == ItemId.Mikaels_Crucible)
             {
-                if (Jlib.getm_bool("mikaels_cc_stun"))
+                if (ultils.getm_bool("mikaels_cc_stun"))
                     list.Add(BuffType.Stun);
-                if (Jlib.getm_bool("mikaels_cc_fear"))
+                if (ultils.getm_bool("mikaels_cc_fear"))
                 {
                     list.Add(BuffType.Fear);
                     list.Add(BuffType.Flee);
                 }
-                if (Jlib.getm_bool("mikaels_cc_charm"))
+                if (ultils.getm_bool("mikaels_cc_charm"))
                     list.Add(BuffType.Charm);
-                if (Jlib.getm_bool("mikaels_cc_taunt"))
+                if (ultils.getm_bool("mikaels_cc_taunt"))
                     list.Add(BuffType.Taunt);
-                if (Jlib.getm_bool("mikaels_cc_snare"))
+                if (ultils.getm_bool("mikaels_cc_snare"))
                     list.Add(BuffType.Snare);
-                if (Jlib.getm_bool("mikaels_cc_silence"))
+                if (ultils.getm_bool("mikaels_cc_silence"))
                     list.Add(BuffType.Silence);
-                if (Jlib.getm_bool("mikaels_cc_polymorph"))
+                if (ultils.getm_bool("mikaels_cc_polymorph"))
                     list.Add(BuffType.Polymorph);
             }
             if (whatitem == ItemId.Quicksilver_Sash)
             {
-                if (Jlib.getm_bool("qs_cc_stun"))
+                if (ultils.getm_bool("qs_cc_stun"))
                     list.Add(BuffType.Stun);
-                if (Jlib.getm_bool("qs_cc_fear"))
+                if (ultils.getm_bool("qs_cc_fear"))
                 {
                     list.Add(BuffType.Fear);
                     list.Add(BuffType.Flee);
                 }
-                if (Jlib.getm_bool("qs_cc_charm"))
+                if (ultils.getm_bool("qs_cc_charm"))
                     list.Add(BuffType.Charm);
-                if (Jlib.getm_bool("qs_cc_taunt"))
+                if (ultils.getm_bool("qs_cc_taunt"))
                     list.Add(BuffType.Taunt);
-                if (Jlib.getm_bool("qs_cc_snare"))
+                if (ultils.getm_bool("qs_cc_snare"))
                     list.Add(BuffType.Snare);
-                if (Jlib.getm_bool("qs_cc_silence"))
+                if (ultils.getm_bool("qs_cc_silence"))
                     list.Add(BuffType.Silence);
-                if (Jlib.getm_bool("qs_cc_polymorph"))
+                if (ultils.getm_bool("qs_cc_polymorph"))
                     list.Add(BuffType.Polymorph);
-                if (Jlib.getm_bool("qs_cc_suppression"))
+                if (ultils.getm_bool("qs_cc_suppression"))
                     list.Add(BuffType.Suppression);
             }
            
@@ -1383,7 +1384,7 @@ namespace JeonUtility
         #region  Status
         public static void addText(float y,bool a,String b)
         {
-            Drawing.DrawText(Monitor.Width - Jlib.getm_value("x"), y, a ? Color.FromArgb(0, 255, 0) : Color.Red,
+            Drawing.DrawText(Monitor.Width - ultils.getm_value("x"), y, a ? Color.FromArgb(0, 255, 0) : Color.Red,
                 b+"[" + (a ? "ON" :"OFF") + "]");
         }
         #endregion

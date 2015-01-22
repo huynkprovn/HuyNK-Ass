@@ -83,8 +83,8 @@ namespace HuyNKSeries.Champ
             //Ultimate 
             Menu rMenu = new Menu("Danh Sách Chiêu R", "RMenu");
 
-            rMenu.AddItem(new MenuItem("R_Min_Range", "R Tầm đánh nhỏ nhất").SetValue(new Slider(300, 0, 1000)));
-            rMenu.AddItem(new MenuItem("R_Max_Range", "R Tầm đánh lớn nhất").SetValue(new Slider(2000, 0, 20000)));
+            rMenu.AddItem(new MenuItem("R_Min_Range", "R Tầm đánh nhỏ nhất").SetValue(new Slider(1000, 0, 1500)));
+            rMenu.AddItem(new MenuItem("R_Max_Range", "R Tầm đánh lớn nhất").SetValue(new Slider(5000, 0, 20000)));
             rMenu.AddItem(new MenuItem("R_Mec", "R nếu trúng mục tiêu >=").SetValue(new Slider(3, 1, 5)));
             rMenu.AddItem(new MenuItem("R_Overkill_Check", "Kiểm tra để dùng R KS").SetValue(true));
 
@@ -207,14 +207,14 @@ namespace HuyNKSeries.Champ
 
                 // AutoQ();
                 if (useQ)
-                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Collision);
                 if (useW)
-                    HuyNkItems.CastBasicSkillShot(W, W.Range, LeagueSharp.Common.TargetSelector.DamageType.Magical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.Collision);
             }
             if (source == "Combo")
             {
-                var wtarget = LeagueSharp.Common.TargetSelector.GetTarget(W.Range, LeagueSharp.Common.TargetSelector.DamageType.Magical);
-                var qTarget = LeagueSharp.Common.TargetSelector.GetTarget(Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical);
+                var wtarget = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Magical);
+                var qTarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical);
                 if (qTarget != null)
                 {
                     if (GetComboDamage(qTarget) >= qTarget.Health && HuyNkItems.Ignite_Ready() &&
@@ -232,9 +232,9 @@ namespace HuyNKSeries.Champ
                     }
                 }
                 if (useQ)
-                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, LeagueSharp.Common.TargetSelector.DamageType.Physical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Collision);
                 if (useW)
-                    HuyNkItems.CastBasicSkillShot(W, W.Range, LeagueSharp.Common.TargetSelector.DamageType.Magical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.Collision);
             }
             if (useE)
                 Cast_E();
@@ -258,7 +258,7 @@ namespace HuyNKSeries.Champ
 
         private void Cast_E()
         {
-            var target = LeagueSharp.Common.TargetSelector.GetTarget(E.Range + 500, LeagueSharp.Common.TargetSelector.DamageType.Magical);
+            var target = TargetSelector.GetTarget(E.Range + 500, TargetSelector.DamageType.True);
 
             if (E.IsReady() && target != null && Menus.menu.Item("E_On_Killable").GetValue<bool>())
             {
@@ -280,7 +280,7 @@ namespace HuyNKSeries.Champ
 
         private void Cast_R()
         {
-            var target = LeagueSharp.Common.TargetSelector.GetTarget(R.Range, LeagueSharp.Common.TargetSelector.DamageType.Magical);
+            var target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Magical);
 
             if (R.IsReady() && target != null)
             {
@@ -385,7 +385,7 @@ namespace HuyNKSeries.Champ
 
         public void ForceR()
         {
-            var target = LeagueSharp.Common.TargetSelector.GetTarget(R.Range, LeagueSharp.Common.TargetSelector.DamageType.Magical);
+            var target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Magical);
             if (target != null && R.GetPrediction(target).Hitchance >= HitChance.High)
                 R.Cast(target, HuyNkItems.packets());
         }
@@ -465,7 +465,7 @@ namespace HuyNKSeries.Champ
                     if (Get_R_Dmg(unit) > health)
                     {
                         Vector2 wts = Drawing.WorldToScreen(unit.Position);
-                        Drawing.DrawText(wts[0] - 20, wts[1], Color.Red, "KILL HIM NOWWWWWWWWWWWW!!!");
+                        Drawing.DrawText(wts[0] - 20, wts[1], Color.Red, "MUC TIEU SAP CHET");
                         
                         
                     }

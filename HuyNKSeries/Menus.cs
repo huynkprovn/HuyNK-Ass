@@ -38,6 +38,12 @@ namespace HuyNKSeries
             menu.AddSubMenu(new Menu("Thông Tin", "Info"));
             menu.SubMenu("Info").AddItem(new MenuItem("[Author]", "[Tác giả: HuyNK]"));
             menu.SubMenu("Info").AddItem(new MenuItem("[Paypal]", "[Ngân Lượng: khachuyvk@gmail.com]"));
+            menu.SubMenu("Info").AddItem(new MenuItem("[Paypal0]", "[Danh sách hỗ trợ]"));
+            menu.SubMenu("Info").AddItem(new MenuItem("[Paypal1]", "[Ezreal]"));
+            menu.SubMenu("Info").AddItem(new MenuItem("[Paypal2]", "[Jinx]"));
+            menu.SubMenu("Info").AddItem(new MenuItem("[Paypal3]", "[Kalista]"));
+            menu.SubMenu("Info").AddItem(new MenuItem("[Paypal4]", "[Teemo]"));
+             menu.SubMenu("Info").AddItem(new MenuItem("[Paypal5]", "[Orbwalker tất cả các tướng]"));
 
             //Target selector
             var targetSelectorMenu = new Menu("Chọn mục tiêu", "Target Selector");

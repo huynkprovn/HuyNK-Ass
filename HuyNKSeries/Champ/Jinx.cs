@@ -49,7 +49,7 @@ namespace HuyNKSeries.Champ
             key.AddItem(
                 new MenuItem("LaneClearActive", "Farm Lính").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
             key.AddItem(
-                new MenuItem("R_Nearest_Killable", "Ulti nếu gần chết !").SetValue(new KeyBind("N".ToCharArray()[0],
+                new MenuItem("R_Nearest_Killable", "Ulti nếu gần chết !").SetValue(new KeyBind("N".ToCharArray()[1],
                     KeyBindType.Press)));
             key.AddItem(
                 new MenuItem("Force_R", "Sử dụng R khi hồi chiu").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
@@ -83,7 +83,7 @@ namespace HuyNKSeries.Champ
             //Ultimate 
             Menu rMenu = new Menu("Danh Sách Chiêu R", "RMenu");
 
-            rMenu.AddItem(new MenuItem("R_Min_Range", "R Tầm đánh nhỏ nhất").SetValue(new Slider(300, 0, 1000)));
+            rMenu.AddItem(new MenuItem("R_Min_Range", "R Tầm đánh nhỏ nhất").SetValue(new Slider(1000, 0, 1500)));
             rMenu.AddItem(new MenuItem("R_Max_Range", "R Tầm đánh lớn nhất").SetValue(new Slider(2000, 0, 20000)));
             rMenu.AddItem(new MenuItem("R_Mec", "R nếu trúng mục tiêu >=").SetValue(new Slider(3, 1, 5)));
             rMenu.AddItem(new MenuItem("R_Overkill_Check", "Kiểm tra để dùng R KS").SetValue(true));

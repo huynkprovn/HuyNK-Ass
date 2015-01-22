@@ -6,15 +6,16 @@ using System.Drawing;
 using System.Windows;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
+using JeonUtility;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using Color = System.Drawing.Color;
 #endregion
 
-namespace JeonUtility
+namespace Ultils
 {
-    class Jlib:Program
+    class ultils:Program
     {
 
         public enum test
@@ -103,18 +104,6 @@ namespace JeonUtility
                     return;
             }
         }
-        //public static string bool2string(bool a)
-        //{
-        //    String total;
-        //    if (a)
-        //    {
-        //        total = "ON";
-        //    }
-        //    else
-        //    {
-        //        total = "OFF";
-        //    }
-        //    return total;
-        //}
+ 
     }
 }

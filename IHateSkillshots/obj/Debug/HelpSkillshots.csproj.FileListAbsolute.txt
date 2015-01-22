@@ -1,0 +1,11 @@
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\bin\Release\Ho tro skillshots.exe.config
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\bin\Release\Ho tro skillshots.exe
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\bin\Release\Ho tro skillshots.pdb
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\bin\Release\LeagueSharp.Common.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\bin\Release\LeagueSharp.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\bin\Release\SharpDX.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\bin\Release\clipper_library.dll
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\obj\Debug\HelpSkillshots.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\obj\Debug\Ho tro skillshots.exe
+C:\Users\Administrator\Documents\GitHub\HuyNK-Ass\IHateSkillshots\obj\Debug\Ho tro skillshots.pdb

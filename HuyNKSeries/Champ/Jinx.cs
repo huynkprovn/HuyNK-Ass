@@ -190,8 +190,7 @@ namespace HuyNKSeries.Champ
 
         private void Combo()
         {
-            UseSpells(Menus.menu.Item("UseQCombo").GetValue<bool>(), Menus.menu.Item("UseWCombo").GetValue<bool>(),
-                Menus.menu.Item("UseECombo").GetValue<bool>(), Menus.menu.Item("UseRCombo").GetValue<bool>(), "Combo");
+            UseSpells(ultils.getm_bool("UseQCombo"), ultils.getm_bool("UseWCombo"), ultils.getm_bool("UseECombo"), ultils.getm_bool("UseRCombo"), "Combo");
         }
 
         private void Harass()
@@ -224,7 +223,7 @@ namespace HuyNKSeries.Champ
                 CastQ();
                   //  HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.VeryHigh);
                 if (useW && dungW)
-                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Physical, HitChance.Collision);
             }
             if (source == "Combo")
             {
@@ -248,14 +247,14 @@ namespace HuyNKSeries.Champ
 
                         if (GetComboDamage(qTarget) < qTarget.Health && !qTarget.HasBuffOfType(BuffType.Slow))
                             HuyNkItems.Use_Botrk(qTarget);
-                        HuyNkItems.Use_DFG(wtarget);
+                       // HuyNkItems.Use_DFG(wtarget);
                     }
                 }
                 if (useQ)
                     
                    CastQ();
                 if (useW)
-                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Physical, HitChance.Collision);
             }
             
             if (useR)
@@ -346,7 +345,7 @@ namespace HuyNKSeries.Champ
                         if (Get_R_Dmg(target) >= target.Health && Player.Distance(target) > minRange)
                         {
                             Game.PrintChat(" ULTI GIET NO NAO .. MUAHHHHHHHHHHHAAAAAAAAAAA  ");
-                            R.Cast(target, HuyNkItems.packets());
+                            R.Cast(target, true,true);
                             return;
                         }
 
@@ -359,7 +358,7 @@ namespace HuyNKSeries.Champ
                             var pred = R.GetPrediction(unit, true);
                             if (Player.Distance(unit) > minRange && pred.AoeTargetsHitCount >= minHit)
                             {
-                                R.Cast(unit, HuyNkItems.packets());
+                                R.Cast(unit, true,true);
                                 //Game.PrintChat("casting");
                                 return;
                             }
@@ -384,7 +383,7 @@ namespace HuyNKSeries.Champ
                         var health = unit.Health + unit.HPRegenRate * 3 + 25;
                         if (Get_R_Dmg(unit) > health)
                         {
-                            R.Cast(unit, HuyNkItems.packets());
+                            R.Cast(unit,true, true);
                             return;
                         }
                     }
@@ -450,11 +449,11 @@ namespace HuyNKSeries.Champ
 
             //adjust range
             if (Q.IsReady())
-                Q.Range = Menus.menu.Item("Q_Max_Range").GetValue<Slider>().Value;
+                Q.Range = ultils.getm_value("Q_Max_Range");
             if (W.IsReady())
-                W.Range = Menus.menu.Item("W_Max_Range").GetValue<Slider>().Value;
+                W.Range = ultils.getm_value("W_Max_Range");
             if (R.IsReady())
-                R.Range = Menus.menu.Item("R_Max_Range").GetValue<Slider>().Value;
+                R.Range = ultils.getm_value("R_Max_Range");
 
             if (Menus.menu.Item("R_Nearest_Killable").GetValue<KeyBind>().Active)
                 Cast_R_Killable();
@@ -488,25 +487,25 @@ namespace HuyNKSeries.Champ
 
         public override void Drawing_OnDraw(EventArgs args)
         {
-            if (Menus.menu.Item("Draw_Disabled").GetValue<bool>())
+            if (ultils.getm_bool("Draw_Disabled"))
                 return;
 
-            if (Menus.menu.Item("Draw_Q").GetValue<bool>())
+            if (ultils.getm_bool("Draw_Q"))
                 if (Q.Level > 0)
                     Utility.DrawCircle(Player.Position, Q.Range, Q.IsReady() ? Color.Green : Color.Red);
-            if (Menus.menu.Item("Draw_W").GetValue<bool>())
+            if (ultils.getm_bool("Draw_W"))
                 if (W.Level > 0)
                     Utility.DrawCircle(Player.Position, W.Range, W.IsReady() ? Color.Green : Color.Red);
 
-            if (Menus.menu.Item("Draw_E").GetValue<bool>())
+            if (ultils.getm_bool("Draw_E"))
                 if (E.Level > 0)
                     Utility.DrawCircle(Player.Position, E.Range, E.IsReady() ? Color.Green : Color.Red);
 
-            if (Menus.menu.Item("Draw_R").GetValue<bool>())
+            if (ultils.getm_bool("Draw_R"))
                 if (R.Level > 0)
                     Utility.DrawCircle(Player.Position, R.Range, R.IsReady() ? Color.Green : Color.Red);
 
-            if (Menus.menu.Item("Draw_R_Killable").GetValue<bool>() && R.IsReady())
+            if (ultils.getm_bool("Draw_R_Killable") && R.IsReady())
             {
                 foreach (
                     var unit in
@@ -518,16 +517,19 @@ namespace HuyNKSeries.Champ
                     if (Get_R_Dmg(unit) + 700 > health)
                     {
                         Drawing.DrawText(Drawing.Width * 0.39f, Drawing.Height * 0.80f, Color.DarkOrange,
-                        " NO CON 700 MAU , ULTI NO KO DAI CA ");
+                        " NO CON 700 MAU ");
                     }
                     if (Get_R_Dmg(unit) > health)
                     {
+
                         Drawing.DrawText(Drawing.Width * 0.39f, Drawing.Height * 0.80f, Color.DarkOrange,
                         " ULTI LA CHET CHAC  ");
                         Vector2 wts = Drawing.WorldToScreen(unit.Position);
                         Drawing.DrawText(wts[0] - 20, wts[1], Color.Red, "MUC TIEU NE!!!");
 
-
+                  
+                        var text = new    Render.Text("Ulti no di , chet ba no roi :))!", Player, new Vector2(0, 50), (int)40, ColorBGRA.FromRgba(0xFF00FFBB));
+                        text.Add();
                     }
                 }
             }

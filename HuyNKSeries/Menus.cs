@@ -24,7 +24,7 @@ namespace HuyNKSeries
         public static string CHAMP_NAME = player.ChampionName ;
         public static void SetuptMenu()
         {
-            Game.PrintChat("=========================");
+            Game.PrintChat("|====================================================|");
             Game.PrintChat("|   <font color = \"#FFB6C1\">HuyNK Serier</font> by <font color = \"#00FFFF\">HuyNK</font> |");
             Game.PrintChat("====================================================");
             Game.PrintChat("|<font color = \"#87CEEB\">Feel free to donate via Paypal to:</font> <font color = \"#FFFF00\">khachuyvk@gmail.com</font>|");
@@ -71,7 +71,7 @@ namespace HuyNKSeries
             }
             catch
             {
-                Game.PrintChat("HuyNK Series => {0} Không hỗ trợ !", player.ChampionName);
+                Game.PrintChat("HuyNK Series => {0} Khong Ho Tro !", player.ChampionName);
             }
         }
 

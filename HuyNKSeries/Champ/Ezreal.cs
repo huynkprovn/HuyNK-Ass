@@ -190,13 +190,13 @@ namespace HuyNKSeries.Champ
 
         private void Combo()
         {
-            UseSpells(Menus.menu.Item("UseQCombo").GetValue<bool>(), Menus.menu.Item("UseWCombo").GetValue<bool>(),
-                Menus.menu.Item("UseECombo").GetValue<bool>(), Menus.menu.Item("UseRCombo").GetValue<bool>(), "Combo");
+            UseSpells(ultils.getm_bool("UseQCombo"), ultils.getm_bool("UseWCombo"),
+               ultils.getm_bool("UseECombo"), ultils.getm_bool("UseRCombo"), "Combo");
         }
 
         private void Harass()
         {
-            UseSpells(Menus.menu.Item("UseQHarass").GetValue<bool>(), Menus.menu.Item("UseWHarass").GetValue<bool>(),
+            UseSpells(ultils.getm_bool("UseQHarass"), ultils.getm_bool("UseWHarass"),
                 false, false, "Harass");
         }
 
@@ -221,7 +221,7 @@ namespace HuyNKSeries.Champ
                         Menus.menu.Item("Ignite").GetValue<bool>())
                         HuyNkItems.Use_Ignite(qTarget);
 
-                    if (Menus.menu.Item("Botrk").GetValue<bool>())
+                    if (ultils.getm_bool("Botrk"))
                     {
                         if (GetComboDamage(qTarget) < qTarget.Health && !qTarget.HasBuffOfType(BuffType.Slow))
                             HuyNkItems.Use_Bilge(qTarget);
@@ -250,7 +250,7 @@ namespace HuyNKSeries.Champ
             List<Obj_AI_Base> allMinionsQ = MinionManager.GetMinions(ObjectManager.Player.ServerPosition, Q.Range,
                 MinionTypes.All, MinionTeam.NotAlly);
 
-            var useQ = Menus.menu.Item("UseQFarm").GetValue<bool>();
+            var useQ = ultils.getm_bool("UseQFarm");
 
             if (useQ && allMinionsQ.Count > 0)
                 Q.Cast(allMinionsQ[0], HuyNkItems.packets());
@@ -260,11 +260,11 @@ namespace HuyNKSeries.Champ
         {
             var target = TargetSelector.GetTarget(E.Range + 500, TargetSelector.DamageType.True);
 
-            if (E.IsReady() && target != null && Menus.menu.Item("E_On_Killable").GetValue<bool>())
+            if (E.IsReady() && target != null && ultils.getm_bool("E_On_Killable"))
             {
                 if (Player.GetSpellDamage(target, SpellSlot.E) > target.Health + 25)
                 {
-                    if (Menus.menu.Item("E_On_Safe").GetValue<bool>())
+                    if (ultils.getm_bool("E_On_Safe"))
                     {
                         var ePos = E.GetPrediction(target);
                         if (ePos.UnitPosition.CountEnemysInRange(500) < 2)
@@ -284,12 +284,12 @@ namespace HuyNKSeries.Champ
 
             if (R.IsReady() && target != null)
             {
-                if (Menus.menu.Item("Dont_R" + target.BaseSkinName) != null)
+                if (ultils.getm_bool("Dont_R" + target.BaseSkinName) != null)
                 {
-                    if (!Menus.menu.Item("Dont_R" + target.BaseSkinName).GetValue<bool>())
+                    if (!ultils.getm_bool("Dont_R" + target.BaseSkinName))
                     {
-                        var minRange = Menus.menu.Item("R_Min_Range").GetValue<Slider>().Value;
-                        var minHit = Menus.menu.Item("R_Mec").GetValue<Slider>().Value;
+                        var minRange = ultils.getm_value("R_Min_Range");
+                        var minHit = ultils.getm_value("R_Mec");
 
                         if (Get_R_Dmg(target) > target.Health && Player.Distance(target) > minRange)
                         {
@@ -326,7 +326,7 @@ namespace HuyNKSeries.Champ
             {
                 if (Menus.menu.Item("Dont_R" + unit.BaseSkinName) != null)
                 {
-                    if (!Menus.menu.Item("Dont_R" + unit.BaseSkinName).GetValue<bool>())
+                    if (!ultils.getm_bool("Dont_R" + unit.BaseSkinName))
                     {
                         var health = unit.Health + unit.HPRegenRate*3 + 25;
                         if (Get_R_Dmg(unit) > health)
@@ -376,9 +376,9 @@ namespace HuyNKSeries.Champ
             {
                 if (Q.GetPrediction(target).Hitchance >= HitChance.High &&
                     (target.HasBuffOfType(BuffType.Stun) || target.HasBuffOfType(BuffType.Snare)) &&
-                    Menus.menu.Item("Auto_Q_Slow").GetValue<bool>())
+                    ultils.getm_bool("Auto_Q_Slow"))
                     Q.Cast(target, HuyNkItems.packets());
-                if (target.HasBuffOfType(BuffType.Slow) && Menus.menu.Item("Auto_Q_Immobile").GetValue<bool>())
+                if (target.HasBuffOfType(BuffType.Slow) && ultils.getm_bool("Auto_Q_Immobile"))
                     Q.Cast(target, HuyNkItems.packets());
             }
         }
@@ -397,11 +397,11 @@ namespace HuyNKSeries.Champ
 
             //adjust range
             if (Q.IsReady())
-                Q.Range = Menus.menu.Item("Q_Max_Range").GetValue<Slider>().Value;
+                Q.Range = ultils.getm_value("Q_Max_Range");
             if (W.IsReady())
-                W.Range = Menus.menu.Item("W_Max_Range").GetValue<Slider>().Value;
+                W.Range = ultils.getm_value("W_Max_Range");
             if (R.IsReady())
-                R.Range = Menus.menu.Item("R_Max_Range").GetValue<Slider>().Value;
+                R.Range = ultils.getm_value("R_Max_Range");
 
             if (Menus.menu.Item("R_Nearest_Killable").GetValue<KeyBind>().Active)
                 Cast_R_Killable();
@@ -435,25 +435,25 @@ namespace HuyNKSeries.Champ
 
         public override void Drawing_OnDraw(EventArgs args)
         {
-            if (Menus.menu.Item("Draw_Disabled").GetValue<bool>())
+            if (ultils.getm_bool("Draw_Disabled"))
                 return;
 
-            if (Menus.menu.Item("Draw_Q").GetValue<bool>())
+            if (ultils.getm_bool("Draw_Q"))
                 if (Q.Level > 0)
                     Utility.DrawCircle(Player.Position, Q.Range, Q.IsReady() ? Color.Green : Color.Red);
-            if (Menus.menu.Item("Draw_W").GetValue<bool>())
+            if (ultils.getm_bool("Draw_W"))
                 if (W.Level > 0)
                     Utility.DrawCircle(Player.Position, W.Range, W.IsReady() ? Color.Green : Color.Red);
 
-            if (Menus.menu.Item("Draw_E").GetValue<bool>())
+            if (ultils.getm_bool("Draw_E"))
                 if (E.Level > 0)
                     Utility.DrawCircle(Player.Position, E.Range, E.IsReady() ? Color.Green : Color.Red);
 
-            if (Menus.menu.Item("Draw_R").GetValue<bool>())
+            if (ultils.getm_bool("Draw_R"))
                 if (R.Level > 0)
                     Utility.DrawCircle(Player.Position, R.Range, R.IsReady() ? Color.Green : Color.Red);
 
-            if (Menus.menu.Item("Draw_R_Killable").GetValue<bool>() && R.IsReady())
+            if (ultils.getm_bool("Draw_R_Killable") && R.IsReady())
             {
                 foreach (
                     var unit in
@@ -466,8 +466,9 @@ namespace HuyNKSeries.Champ
                     {
                         Vector2 wts = Drawing.WorldToScreen(unit.Position);
                         Drawing.DrawText(wts[0] - 20, wts[1], Color.Red, "MUC TIEU SAP CHET");
-                        
-                        
+
+                        var text = new Render.Text("Ulti no di , chet ba no roi :))!", Player, new Vector2(0, 50), (int)40, ColorBGRA.FromRgba(0xFF00FFBB));
+                        text.Add();
                     }
                 }
             }

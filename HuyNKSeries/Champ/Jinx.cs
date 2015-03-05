@@ -51,6 +51,8 @@ namespace HuyNKSeries.Champ
             key.AddItem(
                 new MenuItem("R_Nearest_Killable", "Ulti nếu gần chết !").SetValue(true));
             key.AddItem(
+                new MenuItem("R_Manual", "Ulti Bằng tay!").SetValue(new KeyBind("R".ToCharArray()[0], KeyBindType.Press)));
+            key.AddItem(
                 new MenuItem("Force_R", "Sử dụng R khi hồi chiu").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
             //add to menu
             Menus.menu.AddSubMenu(key);
@@ -453,7 +455,11 @@ namespace HuyNKSeries.Champ
                 W.Range = ultils.getm_value("W_Max_Range");
             if (R.IsReady())
                 R.Range = ultils.getm_value("R_Max_Range");
-
+            if (ultils.getm_bool("R_Manual"))
+            {
+                Cast_R();
+                Cast_R_Killable();
+            }
             if (Menus.menu.Item("R_Nearest_Killable").GetValue<KeyBind>().Active)
                 Cast_R_Killable();
 

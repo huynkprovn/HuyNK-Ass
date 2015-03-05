@@ -49,10 +49,11 @@ namespace HuyNKSeries.Champ
             key.AddItem(
                 new MenuItem("LaneClearActive", "Farm Lính").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
             key.AddItem(
-                new MenuItem("R_Nearest_Killable", "Ulti nếu gần chết !").SetValue(new KeyBind("R".ToCharArray()[0],
-                    KeyBindType.Press)));
+                new MenuItem("R_Nearest_Killable", "Ulti nếu gần chết !").SetValue(true));
             key.AddItem(
-                new MenuItem("Force_R", "Sử dụng R khi hồi chiu").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
+                new MenuItem("R_Manual", "Ulti Bằng tay!").SetValue(new KeyBind("R".ToCharArray()[0], KeyBindType.Press)));
+            key.AddItem(
+                new MenuItem("Force_R", "Sử dụng R khi hồi chiu").SetValue(false));
             //add to menu
             Menus.menu.AddSubMenu(key);
 
@@ -205,11 +206,11 @@ namespace HuyNKSeries.Champ
             if (source == "Harass")
             {
 
-                // AutoQ();
+                AutoQ();
                 if (useQ)
-                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.High);
                 if (useW)
-                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.High);
             }
             if (source == "Combo")
             {
@@ -232,9 +233,9 @@ namespace HuyNKSeries.Champ
                     }
                 }
                 if (useQ)
-                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.High);
                 if (useW)
-                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.High);
             }
             if (useE)
                 Cast_E();
@@ -403,32 +404,38 @@ namespace HuyNKSeries.Champ
             if (R.IsReady())
                 R.Range = ultils.getm_value("R_Max_Range");
 
-            if (Menus.menu.Item("R_Nearest_Killable").GetValue<KeyBind>().Active)
+            if (ultils.getm_bool("R_Manual")) 
+            {
+                Cast_R();
+                Cast_R_Killable();
+            }
+
+             if (ultils.getm_bool("R_Nearest_Killable"))
                 Cast_R_Killable();
 
-            if (Menus.menu.Item("Force_R").GetValue<KeyBind>().Active)
+            if (ultils.getm_bool("Force_R"))
                 ForceR();
 
-            if (Menus.menu.Item("Misc_Use_WE").GetValue<KeyBind>().Active)
+            if (ultils.getm_bool("Misc_Use_WE"))
             {
                 Cast_WE();
             }
 
             AutoQ();
 
-            if (Menus.menu.Item("ComboActive").GetValue<KeyBind>().Active)
+            if (ultils.getm_bool("ComboActive"))
             {
                 Combo();
             }
             else
             {
-                if (Menus.menu.Item("LaneClearActive").GetValue<KeyBind>().Active)
+                if (ultils.getm_bool("LaneClearActive"))
                     Farm();
 
-                if (Menus.menu.Item("HarassActiveT").GetValue<KeyBind>().Active)
+                if (ultils.getm_bool("HarassActiveT"))
                     Harass();
 
-                if (Menus.menu.Item("HarassActive").GetValue<KeyBind>().Active)
+                if (ultils.getm_bool("HarassActive"))
                     Harass();
             }
         }

@@ -50,7 +50,7 @@ namespace HuyNKSeries.Champ
                 new MenuItem("LaneClearActive", "Farm Lính").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
             key.AddItem(
                 new MenuItem("R_Nearest_Killable", "Ulti nếu gần chết !").SetValue(new KeyBind("R".ToCharArray()[0],
-                    KeyBindType.Press)));
+                    KeyBindType.Toggle)));
             key.AddItem(
                 new MenuItem("Force_R", "Sử dụng R khi hồi chiu").SetValue(new KeyBind("I".ToCharArray()[0], KeyBindType.Press)));
             //add to menu
@@ -61,7 +61,7 @@ namespace HuyNKSeries.Champ
 
             Menu qMenu = new Menu("Danh sách chiêu Q", "QMenu");
 
-            qMenu.AddItem(new MenuItem("Q_Max_Range", "Q khi cách tầm").SetValue(new Slider(1050, 500, 1200)));
+            qMenu.AddItem(new MenuItem("Q_Max_Range", "Q khi cách tầm").SetValue(new Slider(1200, 500, 1200)));
             qMenu.AddItem(new MenuItem("Auto_Q_Slow", "Tự động Q chậm").SetValue(true));
             qMenu.AddItem(new MenuItem("Auto_Q_Immobile", "Tự Q khi đứng im").SetValue(true));
             spellMenu.AddSubMenu(qMenu);
@@ -70,7 +70,7 @@ namespace HuyNKSeries.Champ
             Menu wMenu = new Menu("Danh Sách Chiêu W", "WMenu");
 
             wMenu.AddItem(
-                new MenuItem("W_Max_Range", "W khi cách tầm").SetValue(new Slider(900, 500, 1050)));
+                new MenuItem("W_Max_Range", "W khi cách tầm").SetValue(new Slider(1050, 500, 1050)));
             spellMenu.AddSubMenu(wMenu);
             //E 
 
@@ -207,9 +207,9 @@ namespace HuyNKSeries.Champ
 
                 // AutoQ();
                 if (useQ)
-                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.High);
                 if (useW)
-                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.High);
             }
             if (source == "Combo")
             {
@@ -232,9 +232,9 @@ namespace HuyNKSeries.Champ
                     }
                 }
                 if (useQ)
-                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(Q, Q.Range, TargetSelector.DamageType.Physical, HitChance.High);
                 if (useW)
-                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.Collision);
+                    HuyNkItems.CastBasicSkillShot(W, W.Range, TargetSelector.DamageType.Magical, HitChance.High);
             }
             if (useE)
                 Cast_E();
@@ -469,6 +469,7 @@ namespace HuyNKSeries.Champ
 
                         var text = new Render.Text("Ulti no di , chet ba no roi :))!", Player, new Vector2(0, 50), (int)40, ColorBGRA.FromRgba(0xFF00FFBB));
                         text.Add();
+                        R.Cast(unit);
                     }
                 }
             }

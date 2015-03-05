@@ -39,7 +39,7 @@ namespace HuyNKSeries.Champ
             Menu combo = new Menu("Cài đặt chiêu", "combo");
             combo.AddItem(new MenuItem("comboUseQ", "Dùng Q").SetValue(true));
             combo.AddItem(new MenuItem("comboUseE", "Dùng E").SetValue(true));
-            combo.AddItem(new MenuItem("comboNumE", "Dùng E nếu đủ ").SetValue(new Slider(3, 1, 20)));
+            combo.AddItem(new MenuItem("comboNumE", "Dùng E nếu đủ ").SetValue(new Slider(5, 1, 20)));
             combo.AddItem(new MenuItem("comboUseItems", "Dùng items").SetValue(true));
             combo.AddItem(new MenuItem("comboUseIgnite", "Thiêu đốt").SetValue(true));
             combo.AddItem(new MenuItem("comboActive", "Phím đánh nhau").SetValue(new KeyBind(32, KeyBindType.Press)));

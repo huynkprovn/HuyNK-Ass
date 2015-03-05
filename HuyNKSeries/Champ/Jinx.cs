@@ -295,12 +295,12 @@ namespace HuyNKSeries.Champ
 
                 if (IsCannon())
                 {
-                    if (distance <= 500)
+                    if (distance <= 550)
                         Q.Cast();
                 }
                 else
                 {
-                    if (distance > 500)
+                    if (distance > 550)
                         Q.Cast();
                 }
             }

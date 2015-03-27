@@ -77,14 +77,14 @@ namespace MasterSharp.Evade
             var missile = (Obj_SpellMissile) sender;
 
 #if DEBUG
-            if (missile.SpellCaster is Obj_AI_Hero)
+        /*    if (missile.SpellCaster is Obj_AI_Hero)
             {
                 Console.WriteLine(
                     Environment.TickCount + " Projectile Created: " + missile.SData.Name + " distance: " +
                     missile.StartPosition.Distance(missile.EndPosition) + "Radius: " +
                     missile.SData.CastRadiusSecondary[0] + " Speed: " + missile.SData.MissileSpeed);
             }
-
+*/
 #endif
 
 

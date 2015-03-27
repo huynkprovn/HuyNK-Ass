@@ -198,7 +198,7 @@ namespace MasterSharp
             }
             else if (useW != 0 && W.IsReady())
             {
-                var dontMove = (psCast.TimeCast > 2) ? 2000 : psCast.TimeCast*1000;
+                var dontMove = (psCast.CastedSpellCount > 2) ? 2000 : psCast.CastedSpellCount*1000;
                 LxOrbwalker.CantMoveTill = Environment.TickCount + (int) dontMove;
                 W.Cast();
             }

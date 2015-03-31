@@ -108,13 +108,13 @@ namespace MasterSharp
                 Config.AddToMainMenu();
                 Drawing.OnDraw += Drawing_OnDraw;
 
-                Game.OnGameUpdate += Game_OnGameUpdate;
+                Game.OnUpdate += Game_OnGameUpdate;
 
                 Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
 
                 SkillshotDetector.OnDetectSkillshot += SkillshotDetector_OnDetectSkillshot;
                 SkillshotDetector.OnDeleteMissile += SkillshotDetector_OnDeleteMissile;
-                Game.OnGameProcessPacket += Game_OnGameProcessPacket;
+                Game.OnProcessPacket += Game_OnGameProcessPacket;
                 CustomEvents.Unit.OnDash += Unit_OnDash;
             }
             catch

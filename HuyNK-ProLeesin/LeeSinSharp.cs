@@ -107,7 +107,7 @@ namespace LeeSinSharp
 
                 Config.AddToMainMenu();
                 Drawing.OnDraw += onDraw;
-                Game.OnGameUpdate += OnGameUpdate;
+                Game.OnUpdate += OnGameUpdate;
 
                 GameObject.OnCreate += OnCreateObject;
                 GameObject.OnDelete += OnDeleteObject;

@@ -299,7 +299,7 @@ namespace JeonUtility
 
             #endregion
 
-            Game.OnGameUpdate += OnGameUpdate;
+            Game.OnUpdate += OnGameUpdate;
             GameObject.OnCreate += OnCreate;
             GameObject.OnDelete += OnDelete;
             Drawing.OnEndScene += OnDraw_EndScene;

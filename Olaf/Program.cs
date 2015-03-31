@@ -112,7 +112,7 @@ namespace HuyNKOlaf
 
             //Add the events we are going to use:
             Drawing.OnDraw += Drawing_OnDraw;
-            Game.OnGameUpdate += Game_OnGameUpdate;
+            Game.OnUpdate += Game_OnGameUpdate;
             GameObject.OnCreate += GameObject_OnCreate;
             GameObject.OnDelete += GameObject_OnDelete;
             Game.PrintChat("<font color='#881df2'>Olaf HuyNK </font> Loaded!");
@@ -133,7 +133,7 @@ namespace HuyNKOlaf
         {
             {
                 if (_axeObj != null)
-                    Render.Circle.DrawCircle(_axeObj.Position, 100, Color.Yellow, 6);
+                    Render.Circle.DrawCircle(_axeObj.Position, 100, Color.Red, 6);
             }
             //Draw the ranges of the spells.
             foreach (var spell in SpellList)
